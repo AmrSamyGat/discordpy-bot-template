@@ -106,7 +106,7 @@ async def handleCommands(cmd, channel, client, message, command=" ", *cargs):
 registerCommandHandler("help", handleCommands, desc='Gets server commands list', syntax='[OPTIONAL: command name]')
 registerCommandHandler("commands", handleCommands, desc='Gets server commands list', syntax='[OPTIONAL: command name]')
 
-games = ["League of legends", "CSGO", "Valorant", "Brawlhalla", "Fortnite"]
+games = ["League of legends", "CSGO", "Valorant", "Brawlhalla", "Fortnite"] # create roles with these names so it can work
 games_ref = {
     "lol":"League of legends", 
     "league":"League of legends", 
