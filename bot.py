@@ -1,6 +1,6 @@
 from commands import *
-import discord
-token = "NzI4Mjk4Mzc0ODYzOTEzMDAw.Xv4Xhg.tj56weSmyRoqXLv8U9g_MAl-0dQ"
+from admin_commands import *
+token = "bot_token"
 client = Client()
 prefix = getPrefix()
 
@@ -45,6 +45,6 @@ async def changeSt(cmd, channel, client, message, online="online", act="playing"
         scolor = discord.ActivityType.playing
     await client.change_presence(status=scolor, activity=discord.Activity(type=stype, name=" ".join(status)))
 registerCommandHandler("status", changeSt, desc='Sets bot status', syntax='<status:online/dnd/idle/invis> <activity:listening/watching/playing> <status_text:whatever>', restricted={"656217194694180917", "786137381228249098"})
-#await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Akeed Abyu ely 3aml el beat"))
+
 #################
 client.run(token)

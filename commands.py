@@ -1,7 +1,6 @@
 import discord
 from discord import *
 from discord.utils import get
-#import youtube_dl
 import random
 import re
 prefix = "!"
@@ -16,7 +15,6 @@ async def sendEmbed(channel, title="", desc="", items={}, r=255, g=255, b=255):
     embed = Embed(title=title, description=desc, color=tocolor(r, g, b))
     for name, value in items.items():
         embed.add_field(name=name, value=value, inline=False)
-    #embed.set_thumbnail(url="http://noxus.ga/assets/pfp.png")
     await channel.send(embed=embed)
 
 def registerCommandHandler(cmd, handlerFunc, desc='No Description', syntax='', restricted=None):
@@ -51,12 +49,11 @@ def getCMDArgs(cmd):
     else:
         args = [cmd]
     return args
-
 def handleCommand(cmd, channel, client, message, *argss):
     args = getCMDArgs(cmd)
     cmd = args[0]
     if not isCommand(cmd):
-        return
+        return test()
     func = commands[cmd]["function"]
     ch = commands[cmd]["channels"]
     found = True
@@ -76,23 +73,9 @@ def handleCommand(cmd, channel, client, message, *argss):
     if(found == True):
         return func(commands[cmd]["name"], channel, client, message, *argss)
     else:
-        return
+        return test()
 
 # Commands
-async def sendToRandUser(cmd, channel, client, message, *cargs):
-    text = " ".join(cargs)
-    user = random.choice(channel.guild.members)
-    
-    userch = user.dm_channel
-    if userch == None:
-        userch = await user.create_dm()
-    try:
-        await userch.send(text)
-        await channel.send("***sent:***  `"+text+"` to :point_right: ***"+str(user)+"***")
-    except Exception as e:
-        await channel.send("***Error:***  `"+str(e)+"`") 
-registerCommandHandler("randuser", sendToRandUser, desc='Sends text to a random user', syntax='<text>')
-
 async def myAccAge(cmd, channel, client, message, target="", *cargs):
     if target != "":
         uid= target.replace("<", "").replace("!", "").replace("@", "").replace(">", "")
@@ -188,34 +171,5 @@ async def removeGame(cmd, channel, client, message, *cargs):
 
 registerCommandHandler("removegame", removeGame, desc='Removes a game role from you', syntax='<game_role_name>')
 registerCommandHandler("delgame", removeGame, desc='Removes a game role from you', syntax='<game_role_name>')
-
-async def sendToNews(cmd, channel, client, message, *cargs):
-    text = " ".join(cargs)
-    text = re.sub("\s\s+" , " ", text).strip().lower()
-    ch = discord.utils.get(message.guild.text_channels, name="news")
-    if ch != None:
-        try:
-            await ch.send("@everyone, "+text)
-            await channel.send("Successfully sent your message")
-        except Exception as e:
-            await channel.send("***Error:***  `"+str(e)+"`") 
-
-registerCommandHandler("news", sendToNews, desc='Sends news', syntax='<text>', restricted="656217194694180917")
-
-async def kickMember(cmd, channel, client, message, target="", *reason):
-    reas = " ".join(reason)
-    if target != "":
-        uid= target.replace("<", "").replace("!", "").replace("@", "").replace(">", "")
-        await channel.send("***ID:***  `"+str(uid)+"`")
-        user = get(client.get_all_members(), id=uid)
-        await channel.send("***user:***  `"+str(user)+"`")
-        if user:
-            try:
-                await user.kick(reason=reas)
-                await channel.send("Successfully kicked da boi")
-            except Exception as e:
-                 await channel.send("***Error:***  `"+str(e)+"`")
-        else:
-            await channel.send("***User not found.***")
-
-registerCommandHandler("kick", kickMember, desc='Kicks a member', syntax='<@member> [reason]', restricted={"656217194694180917", "786137381228249098"})
+async def test():
+    pass
