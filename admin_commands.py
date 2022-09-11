@@ -1,8 +1,9 @@
-from commands import *
-admin_channels = ["656217194694180917", "786137381228249098"] # IDs of admin channels
+from command_handler import *
+import re, random
+admin_channels = ["ch_id1", "ch_id2"] # IDs of admin channels
 news_channel_name = "news"
 
-
+# examples
 async def sendToNews(cmd, channel, client, message, *cargs):
     text = " ".join(cargs)
     text = re.sub("\s\s+" , " ", text).strip().lower()
